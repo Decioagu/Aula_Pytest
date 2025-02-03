@@ -166,5 +166,63 @@ Onde: @pytest.mark.parametrize("a+b=resposta",[(1 + 2 = 3),(4 + 5 = 9),(10 + 20 
 ---
 
 **Aula_19**
+- __GitHub Actions__ para VS Code:
+    - O __GitHub Actions__ é uma poderosa ferramenta de automação de fluxos de trabalho integrada ao GitHub. Com ele, você pode automatizar tarefas como compilação, teste e implantação de código, diretamente no seu repositório.
 
 
+- Instale a extensão do GitHub Actions:
+    - Abra o VS Code e vá para a aba de extensões (Ctrl+Shift+X).
+    - Pesquise por "GitHub Actions" e instale a extensão oficial.
+
+- Crie um arquivo de fluxo de trabalho:
+    - No seu repositório, crie um arquivo __YAML__ na pasta __.github/workflows__.
+    - Esse arquivo definirá o seu fluxo de trabalho, incluindo os eventos que o disparam, as tarefas a serem executadas e a ordem em que serão executadas.
+    - Exemplo: __nome_arquivo.yml__
+
+- Defina os eventos que disparam o fluxo de trabalho:
+    - Você pode definir eventos como push, pull_request ou agendamentos para iniciar seu fluxo de trabalho.
+
+- Escopo do arquivo __nome_arquivo.yml__:
+# ---------------------------------------------------------------------------------------
+name: App Python para Testar Github Action # Nome do seu fluxo de trabalho (aparecerá no GitHub)
+
+on: [push, pull_request] # Define fluxo de trabalho será executado
+
+jobs: # Define um ou mais trabalhos que serão executados
+  test: #  Nome do trabalho, pode ser qualquer nome descritivo.
+    runs-on: windows-latest # Especifica o ambiente virtual onde o trabalho será executado (ex: ubuntu-latest)
+    steps: # Etapas a serem executadas dentro do trabalho
+      - uses: actions/checkout@v4 # Esta ação clona o repositório para o ambiente virtual.
+      - name: Configurar Python 3.13.1 ##Comentário## da versão do Python
+        uses: actions/setup-python@v4 # Usa ação oficial do GitHub p/ instalar o Python, na versão máquina virtual
+        with: # Passa parâmetros para a ação.
+          python-version: '3.13' # Define requerimento para versão do Python
+      - name: Instalar dependências ##Comentário## nome do passo.
+        run: | # Executa um comando no terminal da máquina virtual
+          pip install -r requirements.txt ###Comando###
+      - name: Executar testes ##Comentário## nome do passo.
+        run: | # Executa os testes automatizados usando comando pytest.
+          pytest ###Comando###
+# ---------------------------------------------------------------------------------------
+''' OBS: Se os testes falharem, o GitHub Actions interrompe a execução e marca o workflow como "Failed" '''
+# ---------------------------------------------------------------------------------------
+
+- Configure as ações no terminal:
+    -  git add * (esse comando irá adicionar todos os arquivos novos e/ou modificados
+ao repositório)
+    - git commit -m “seu comentário” (O git commit executa o commit dos arquivos que foram adicionados e cria uma
+nova revisão)
+    - git push -u <nome_curto> <nome_do_branch> (subir suas modificações para um repositório remoto
+conectado anteriormente com git remote)
+        - <nome_curto>: Este é o nome abreviado do seu repositório remoto. Geralmente, o nome padrão para o repositório remoto principal é origin.
+        - <nome_do_branch>: Este é o nome do branch que você deseja enviar para o repositório remoto.
+---
+
+ **Aula_20**
+ - Exemplo de teste de performance (tempo corrido).
+ ---
+
+ **Aula21**
+ - O __pytest-asyncio__ é um plugin do pytest que permite testar funções assíncronas (async def) no Python. O pytest padrão não suporta async def diretamente, então sem esse plugin, os testes assíncronos serão ignorados. Para testar funções assíncronas, você precisa instalar e usar o pytest-asyncio.
+    - pip install pytest-asyncio
+---

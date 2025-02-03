@@ -1,5 +1,5 @@
 import time
 
 def long_running_function():
-    time.sleep(4)
+    time.sleep(4) # duração
     return "finished"
